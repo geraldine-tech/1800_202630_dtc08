@@ -66,8 +66,9 @@ elmo-hikes/
 
 
 ## Contributors
-- **Geraldine  Odumegwu** - BCIT CST Student with a passion for outdoor adventures and user-friendly applications. Fun fact: Loves solving Rubik's Cubes in under a minute.
-- **iliya and Tymur** - BCIT CST Student, Iliya love playing football and a great devloper And Tymur loves sewing and a ggreat developer. Fun fact: Iliya hava a ball and Tymur have a sewing Machine.
+- **Geraldine  Odumegwu** - BCIT CST Student with a passion for outdoor adventures and user-friendly applications. Fun fact: Loves solving Rubik's Cubes in under a minute. 
+- **iliya** - BCIT CST Student with a passion for playing soccer videogames. Fun fact: Loves cooking delicuos food and bad caes
+- **Tymur Rezaei** - BCIT CST Student with a passion for creating and user-friendly applications. Fun fact: Loves to crochet while watching TV shows.
 
 ---
 
