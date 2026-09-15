@@ -67,7 +67,9 @@ elmo-hikes/
 
 ## Contributors
 - Tymur Rezaei - BCIT CST Student with a passion for creating and user-friendly applications. Fun fact: Loves to crochet while watching TV shows.
-- **Teammate Name** - BCIT CST Student, Frontend enthusiast with a knack for creative design. Fun fact: Has a collection of over 50 houseplants.
+- Iliya - BCIT CST Student, Frontend enthusiast with a knack for creative design. Fun fact: plays soccer.
+- Geraldine - BCIT CST Student, Frontend enthusiast with a knack for creative design. Fun fact: likes to sew.
+
 
 ---
 
