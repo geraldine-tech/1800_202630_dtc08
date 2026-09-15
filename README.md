@@ -66,9 +66,8 @@ elmo-hikes/
 
 
 ## Contributors
+- **iliya** - BCIT CST Student with a passion for playing soccer videogames. Fun fact: Loves cooking delicuos food and bad caes
 - Tymur Rezaei - BCIT CST Student with a passion for creating and user-friendly applications. Fun fact: Loves to crochet while watching TV shows.
-
-
 ---
 
 
