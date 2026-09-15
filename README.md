@@ -67,7 +67,6 @@ elmo-hikes/
 
 ## Contributors
 - **iliya** - BCIT CST Student with a passion for playing soccer videogames. Fun fact: Loves cooking delicuos food and bad caes
-- **tymur and geraline** - BCIT CST Students,tymur like taking care of plants. Fun fact: Has a collection of over 50 houseplants.geraline like to swim
 
 ---
 
