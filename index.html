@@ -16,16 +16,71 @@
     
 
 <body>
-    <!--Hero Section Starts-->
-    <div class="px-3 py-5 my-2 mx-2 text-center bg-primary-subtle">
-        <img class="d-block mx-auto mb-4" src="./images/healthy.jpg" alt="" width="72" height="57">
-        <h1 class="display-5 fw-bold text-body-emphasis">Let's begin your Health Eating journey!</h1>
-        <div class="col-lg-6 mx-auto">
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center"> <button type="button" class="btn btn-info btn-lg"
-                    type="button"> Login / Signup
-                </button>
+    <nav class="navbar navbar-expand-sm bg-secondary-subtle">
+        <div class="container-fluid">
+
+            <!-- Logo and Brand -->
+            <a class="navbar-brand" href="index.html">
+                <img src="images/healthy.jpg" height="36" alt="Healthy Eating logo">
+                Healthy Eating
+            </a>
+
+            <!-- Mobile Menu Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar Links and Search -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            My Account
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#my-food">My Food</a></li>
+                            <li><a class="dropdown-item" href="#favorites">Favorites</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <!-- Search Bar -->
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search meals..." aria-label="Search">
+                    <button class="btn btn-outline-dark" type="submit">
+                        Search
+                    </button>
+                </form>
+
             </div>
         </div>
+    </nav>
+
+    <!-- Call to Action -->
+
+
+    <!------------------------------>
+    <!-- Your HTML Layout go here -->
+    <!------------------------------>
+    <!-- Stuff for body goes here -->
+
+
+    <!---------------------------------------------->
+    <!-- Your own JavaScript functions go here    -->
+    <!---------------------------------------------->
+
+    <!-- Link to scripts of your own -->
+    <script type="module" src="./src/main.js">
+    </script>
 
 </body>
 
