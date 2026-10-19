@@ -15,10 +15,9 @@
 
 </head>
 
-    
-
 <body>
-    <nav class="navbar navbar-expand-sm bg-secondary-subtle">
+
+    <nav class="navbar navbar-expand-sm bg-success-subtle" aria-label="Main navigation">
         <div class="container-fluid">
 
             <!-- Logo and Brand -->
@@ -62,40 +61,95 @@
                         Search
                     </button>
                 </form>
-        </div>
+            </div>
     </nav>
 
-    <!--Hero Section Starts-->
-    <div class="hero px-3 py-5 my-2 mx-2 text-center bg-secondary-subtle">
-        <img class="d-block mx-auto mb-4" src="./images/healthy.jpg" alt="" width="72" height="57">
-        <h1 class="display-5 fw-bold text-body-emphasis">Let's begin your Health Eating journey!</h1>
+    <!-- Hero Section Starts -->
+    <div class="hero hero-section navbar-sage px-3 py-5 my-2 mx-2 text-center">
+        <img class="d-block mx-auto mb-4" src="./images/healthy.jpg" alt="Healthy Eating logo" width="72" height="57">
+
+        <h1 class="display-5 fw-bold text-success-emphasis">
+            Let's begin your Healthy Eating journey!
+        </h1>
+
         <div class="col-lg-6 mx-auto">
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
             </div>
         </div>
     </div>
 
-    <!--LOGIN / CTA-->
-    <div class="cta">
-        <div class="cta_wrapper">
-            <h1 class="cta_title">Log in</h1>
-            <field class="cta_input_field">
-                <input type="text" class="cta_email">
-                <span class="cta_span">Email</span>
-            </field>
-            <field class="cta_input_field">
-                <input type="text" class="cta_password">
-                <span class="cta_span">Password</span>
-            </field>
-            <div class="cta_remember_wrapper">
-                <input type="checkbox" name="" id="" class="cta-checkbox">
-                <p class="cta-checkbox-p">Remember me</p>
-            </div>
-            <button class="cta_confirm">Login</button>
+
+    <!-- LOGIN / CTA -->
+    <div class="container d-flex justify-content-center py-5">
+        <div class="w-100" style="max-width: 400px;">
+
+            <h1 class="h3 fw-bold mb-4">Log in</h1>
+
+            <form>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter your password"
+                        required>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="remember">
+                    <label class="form-check-label" for="remember">
+                        Remember me
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-success w-100">
+                    Login
+                </button>
+            </form>
+
         </div>
     </div>
+
+    <nav class="navbar fixed-bottom bg-success-subtle border-top" aria-label="Footer navigation">
+        <div class="container-fluid ">
+            <div class="d-flex justify-content-around w-100">
+
+                <a href="index.html" class="nav-link flex-fill text-center text-success py-2">
+                    <i class="bi bi-house-door fs-4 d-block"></i>
+                    <small>Home</small>
+                </a>
+
+                <a href="favorites.html" class="nav-link flex-fill text-center py-2 text-secondary">
+                    <i class="bi bi-bookmark fs-4 d-block"></i>
+                    <small>favorites</small>
+                </a>
+
+                <a href="learn.html" class="nav-link flex-fill text-center py-2 text-secondary">
+                    <i class="bi bi-book-half fs-4 d-block"></i>
+                    <small>Learn</small>
+                </a>
+
+                <a href="profile.html" class="nav-link flex-fill text-center py-2 text-secondary">
+                    <i class="bi bi-person-circle fs-4 d-block"></i>
+                    <small>Profile</small>
+                </a>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- Copyright Footer -->
+    <footer class="text-center py-3 mb-5">
+        <small class="text-secondary">
+            &copy; 2026 Healthy Eating. All rights reserved.
+        </small>
+    </footer>
+
     <script type="module" src="./src/main.js">
     </script>
 </body>
+
 
 </html>
