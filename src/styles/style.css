@@ -1,0 +1,68 @@
+body {
+    background-color: #f8faf7;
+    color: #26352b;
+    font-family: Arial, sans-serif;
+    padding-bottom: 75px;
+}
+
+.hero-section {
+    background: linear-gradient(135deg, #e5f2e6, #f5faf3);
+}
+
+.hero-description {
+    max-width: 650px;
+}
+
+.feature-card {
+    background-color: #ffffff;
+    border: 1px solid #e1e9df;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+.dashboard-welcome {
+    background-color: #e5f2e6;
+    border-radius: 16px;
+}
+
+.meal-card {
+    border: 1px solid #e1e9df;
+    border-radius: 14px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.meal-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.auth-card {
+    max-width: 440px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e1e9df;
+}
+
+.btn-success {
+    background-color: #27834a;
+    border-color: #27834a;
+}
+
+.btn-success:hover {
+    background-color: #1d693a;
+    border-color: #1d693a;
+}
+
+.navbar-brand {
+    letter-spacing: 0.2px;
+}
+
+@media (max-width: 576px) {
+    .hero-section h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero-section .btn {
+        margin-bottom: 8px;
+    }
+}

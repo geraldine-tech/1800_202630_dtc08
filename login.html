@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login | AffordableEats</title>
+</head>
+
+<body>
+
+    <site-navbar></site-navbar>
+
+    <main class="container py-5">
+        <div class="auth-card mx-auto p-4 shadow-sm">
+
+            <div id="authAlert" class="alert alert-danger d-none" role="alert"></div>
+
+            <div id="loginView">
+                <h2 class="text-center fw-bold mb-2">Welcome Back!</h2>
+                <p class="text-center text-secondary mb-4">
+                    Log in to continue your healthy eating journey.
+                </p>
+
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label for="loginEmail" class="form-label">Email</label>
+                        <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email"
+                            required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="loginPassword" class="form-label">Password</label>
+                        <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password"
+                            required>
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100">
+                        Log In
+                    </button>
+                </form>
+
+                <p class="text-center mt-3 mb-0">
+                    Don't have an account?
+                    <a href="#" id="toSignup">Sign up</a>
+                </p>
+            </div>
+
+            <div id="signupView" class="d-none">
+                <h2 class="text-center fw-bold mb-2">Create Account</h2>
+                <p class="text-center text-secondary mb-4">
+                    Join AffordableEats today.
+                </p>
+
+                <form id="signupForm">
+                    <div class="mb-3">
+                        <label for="signupName" class="form-label">Full Name</label>
+                        <input type="text" id="signupName" class="form-control" placeholder="Enter your name" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="signupEmail" class="form-label">Email</label>
+                        <input type="email" id="signupEmail" class="form-control" placeholder="Enter your email"
+                            required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="signupPassword" class="form-label">Password</label>
+                        <input type="password" id="signupPassword" class="form-control"
+                            placeholder="At least 6 characters" minlength="6" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100">
+                        Create Account
+                    </button>
+                </form>
+
+                <p class="text-center mt-3 mb-0">
+                    Already have an account?
+                    <a href="#" id="toLogin">Log in</a>
+                </p>
+            </div>
+
+        </div>
+    </main>
+
+    <site-footer></site-footer>
+
+    <script type="module" src="/src/app.js"></script>
+    <script type="module" src="/src/loginSignup.js"></script>
+</body>
+
+</html>
