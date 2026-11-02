@@ -12,6 +12,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="./styles/footer.css" />
     <link rel="stylesheet" href="./styles/header.css" />
 
     <!-- Other libraries go here -->
@@ -76,55 +77,16 @@
       </div>
     </div>
 
-    <nav
-      class="navbar fixed-bottom bg-success-subtle border-top"
-      aria-label="Footer navigation"
-    >
-      <div class="container-fluid">
-        <div class="d-flex justify-content-around w-100">
-          <a
-            href="index.html"
-            class="nav-link flex-fill text-center text-success py-2"
-          >
-            <i class="bi bi-house-door fs-4 d-block"></i>
-            <small>Home</small>
-          </a>
-
-          <a
-            href="favorites.html"
-            class="nav-link flex-fill text-center py-2 text-secondary"
-          >
-            <i class="bi bi-bookmark fs-4 d-block"></i>
-            <small>favorites</small>
-          </a>
-
-          <a
-            href="learn.html"
-            class="nav-link flex-fill text-center py-2 text-secondary"
-          >
-            <i class="bi bi-book-half fs-4 d-block"></i>
-            <small>Learn</small>
-          </a>
-
-          <a
-            href="profile.html"
-            class="nav-link flex-fill text-center py-2 text-secondary"
-          >
-            <i class="bi bi-person-circle fs-4 d-block"></i>
-            <small>Profile</small>
-          </a>
-        </div>
-      </div>
-    </nav>
-
     <!-- Copyright Footer -->
     <footer class="text-center py-3 mb-5">
       <small class="text-secondary">
         &copy; 2026 Healthy Eating. All rights reserved.
       </small>
     </footer>
+    <nav-footer></nav-footer>
 
     <script type="module" src="./src/main.js"></script>
     <script type="module" src="./src/components/nav_header.js"></script>
+    <script type="module" src="./src/components/footer.js"></script>
   </body>
 </html>
