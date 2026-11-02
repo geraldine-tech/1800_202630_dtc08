@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard | AffordableEats</title>
+</head>
+
+<body>
+
+    <site-navbar></site-navbar>
+
+    <main class="container py-4">
+
+        <section class="dashboard-welcome p-4 mb-4">
+            <h1 class="fw-bold">
+                Hello, <span id="name-goes-here">friend</span>!
+            </h1>
+            <p class="mb-0">
+                Let's find healthy meals that fit your budget.
+            </p>
+        </section>
+
+        <section class="row g-3 mb-4">
+            <div class="col-md-6">
+                <div class="feature-card p-4 h-100">
+                    <p class="text-secondary mb-1">Your daily food budget</p>
+                    <h2 class="text-success fw-bold" id="dailyBudget">$20.00</h2>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="feature-card p-4 h-100">
+                    <p class="text-secondary mb-1">Your nutritional preferences</p>
+                    <p class="fw-semibold mb-0" id="nutritionNeeds">
+                        Loading preferences...
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-4">
+            <h2 class="fw-bold">Explore Affordable Meals</h2>
+            <p class="text-secondary">
+                Discover meals and their estimated nutritional information.
+            </p>
+
+            <div id="mealMessage" class="text-secondary">
+                Loading meals...
+            </div>
+
+            <div id="mealsContainer" class="row g-4"></div>
+        </section>
+
+    </main>
+
+    <site-footer></site-footer>
+
+    <script type="module" src="/src/app.js"></script>
+    <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
