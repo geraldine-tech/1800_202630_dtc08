@@ -30,7 +30,7 @@ class SiteNavbar extends HTMLElement {
                                 <a class="nav-link" href="main.html">Meals</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="favorites.html">Favorites</a>
+                                <a class="nav-link" href="favorite.html">Favorites</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="learn.html">Learn</a>

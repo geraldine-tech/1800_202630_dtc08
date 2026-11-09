@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Saved Meals | AffordableEats</title>
+</head>
+
+<body>
+
+    <site-navbar></site-navbar>
+
+    <main class="container py-4">
+
+        <section class="mb-4">
+            <h2 class="fw-bold">My Saved Meals</h2>
+            <p class="text-secondary">
+                Keep your favourite affordable and healthy meals in one place.
+            </p>
+        </section>
+
+        <section>
+            <p id="savedMealsMessage" class="text-secondary">
+                You haven't saved any meals yet.
+            </p>
+
+            <div id="savedMealsContainer" class="row g-4">
+                <!-- Saved meals will appear here -->
+            </div>
+        </section>
+
+    </main>
+
+    <site-footer></site-footer>
+
+    <script type="module" src="/src/app.js"></script>
+    <script type="module" src="/src/favourite.js"></script>
+
+</body>
+
+</html>

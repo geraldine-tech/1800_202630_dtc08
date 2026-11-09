@@ -13,6 +13,7 @@
 
     <main class="container py-4">
 
+        <!-- Welcome Section -->
         <section class="dashboard-welcome p-4 mb-4">
             <h1 class="fw-bold">
                 Hello, <span id="name-goes-here">friend</span>!
@@ -22,43 +23,218 @@
             </p>
         </section>
 
+        <!-- Budget and Nutrition Information -->
         <section class="row g-3 mb-4">
+
             <div class="col-md-6">
                 <div class="feature-card p-4 h-100">
-                    <p class="text-secondary mb-1">Your daily food budget</p>
-                    <h2 class="text-success fw-bold" id="dailyBudget">$20.00</h2>
+                    <p class="text-secondary mb-1">
+                        Your daily food budget
+                    </p>
+                    <h2 class="text-success fw-bold" id="dailyBudget">
+                        $20.00
+                    </h2>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="feature-card p-4 h-100">
-                    <p class="text-secondary mb-1">Your nutritional preferences</p>
+                    <p class="text-secondary mb-1">
+                        Your nutritional preferences
+                    </p>
                     <p class="fw-semibold mb-0" id="nutritionNeeds">
                         Loading preferences...
                     </p>
                 </div>
             </div>
+
         </section>
 
+        <!-- Explore Meals Section -->
         <section class="mb-4">
+
             <h2 class="fw-bold">Explore Affordable Meals</h2>
+
             <p class="text-secondary">
                 Discover meals and their estimated nutritional information.
             </p>
 
+            <!-- Add a Meal Button -->
+            <div class="d-grid d-md-flex justify-content-md-end mb-3">
+                <button type="button" class="btn btn-success" id="addMealBtn" data-bs-toggle="modal"
+                    data-bs-target="#addMealModal">
+
+                    <i class="bi bi-plus-lg me-2"></i>
+                    Add a Meal
+
+                </button>
+            </div>
+
+            <!-- Meal Loading Message -->
             <div id="mealMessage" class="text-secondary">
                 Loading meals...
             </div>
 
+            <!-- Meals Container -->
             <div id="mealsContainer" class="row g-4"></div>
+
         </section>
+
+        <!-- Add a Meal Modal -->
+        <div class="modal fade" id="addMealModal" tabindex="-1" aria-labelledby="addMealModalLabel" aria-hidden="true">
+
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h5 class="modal-title fw-bold" id="addMealModalLabel">
+                            Add Your Own Meal
+                        </h5>
+
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+
+                        <p class="text-secondary">
+                            Share your meal with AffordableEats or save it privately.
+                        </p>
+
+                        <form id="addMealForm">
+
+                            <!-- Meal Name -->
+                            <div class="mb-3">
+                                <label for="mealName" class="form-label">
+                                    Meal Name
+                                </label>
+                                <input type="text" class="form-control" id="mealName" placeholder="Enter meal name"
+                                    required>
+                            </div>
+
+                            <!-- Meal Type -->
+                            <div class="mb-3">
+                                <label for="mealType" class="form-label">
+                                    Meal Type
+                                </label>
+                                <select class="form-select" id="mealType" required>
+                                    <option value="">Select meal type</option>
+                                    <option value="Breakfast">Breakfast</option>
+                                    <option value="Lunch">Lunch</option>
+                                    <option value="Dinner">Dinner</option>
+                                    <option value="Snack">Snack</option>
+                                </select>
+                            </div>
+
+                            <!-- Description -->
+                            <div class="mb-3">
+                                <label for="mealDescription" class="form-label">
+                                    Description
+                                </label>
+                                <textarea class="form-control" id="mealDescription" rows="2"
+                                    placeholder="Describe your meal" required></textarea>
+                            </div>
+
+                            <!-- Ingredients -->
+                            <div class="mb-3">
+                                <label for="mealIngredients" class="form-label">
+                                    Ingredients
+                                </label>
+                                <textarea class="form-control" id="mealIngredients" rows="3"
+                                    placeholder="Enter ingredients, separated by commas" required></textarea>
+                            </div>
+
+                            <!-- Preparation Instructions -->
+                            <div class="mb-3">
+                                <label for="mealInstructions" class="form-label">
+                                    Preparation Instructions
+                                </label>
+                                <textarea class="form-control" id="mealInstructions" rows="3"
+                                    placeholder="Explain how to prepare the meal" required></textarea>
+                            </div>
+
+                            <!-- Meal Information -->
+                            <div class="row g-3">
+
+                                <div class="col-md-6">
+                                    <label for="estimatedCost" class="form-label">
+                                        Estimated Cost ($)
+                                    </label>
+                                    <input type="number" class="form-control" id="estimatedCost" min="0.01" step="0.01"
+                                        placeholder="e.g. 8.50" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="preparationTime" class="form-label">
+                                        Preparation Time (minutes)
+                                    </label>
+                                    <input type="number" class="form-control" id="preparationTime" min="1" step="1"
+                                        placeholder="e.g. 30" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="calories" class="form-label">
+                                        Calories
+                                    </label>
+                                    <input type="number" class="form-control" id="calories" min="0" step="1"
+                                        placeholder="e.g. 450" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="protein" class="form-label">
+                                        Protein (g)
+                                    </label>
+                                    <input type="number" class="form-control" id="protein" min="0" step="0.1"
+                                        placeholder="e.g. 25" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="servings" class="form-label">
+                                        Number of Servings
+                                    </label>
+                                    <input type="number" class="form-control" id="servings" min="1" step="1"
+                                        placeholder="e.g. 2" required>
+                                </div>
+
+                            </div>
+
+                            <!-- Modal Footer -->
+                            <div class="modal-footer px-0 pb-0 mt-4">
+
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                    Cancel
+                                </button>
+
+                                <button type="button" class="btn btn-outline-success" id="savePrivateMealBtn">
+                                    Save Privately
+                                </button>
+
+                                <button type="button" class="btn btn-success" id="submitMealReviewBtn">
+                                    Submit for Review
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
 
     </main>
 
     <site-footer></site-footer>
 
+    <!-- JavaScript Files -->
     <script type="module" src="/src/app.js"></script>
     <script type="module" src="/src/main.js"></script>
+
 </body>
 
 </html>
