@@ -7,8 +7,8 @@ class SiteNavbar extends HTMLElement {
             <nav class="navbar navbar-expand-lg bg-success-subtle">
                 <div class="container">
                     <a class="navbar-brand fw-bold text-success" href="index.html">
-                        <img src="/images/healthy.jpg"
-                             height="36"
+                        <img src="/images/healthy-eating-logo-transparent.png"
+                        height="55"
                              alt="AffordableEats logo"
                              class="me-2">
                         AffordableEats

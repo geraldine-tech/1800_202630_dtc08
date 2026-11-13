@@ -12,8 +12,8 @@ class SiteFooter extends HTMLElement {
                         </a>
 
                         <a href="favorite.html" class="nav-link text-center">
-                            <i class="bi bi-bookmark fs-4 d-block"></i>
-                            <small>Saved</small>
+                            <i class="bi bi-heart fs-4 d-block"></i>
+                            <small>Favorite</small>
                         </a>
 
                         <a href="learn.html" class="nav-link text-center">
