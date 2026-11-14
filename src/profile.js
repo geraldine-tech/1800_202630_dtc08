@@ -1,5 +1,5 @@
 import { db } from "./firebaseConfig.js";
-import { requireAuth } from "./authentication.js";
+import { requireAuth, onAuthReady } from "./authentication.js";
 import { doc, getDoc } from "firebase/firestore";
 
 // ---------- FETCH: gets data, touches no HTML ----------
@@ -42,7 +42,7 @@ function renderProfile(userData) {
 }
 
 // ---------- ORCHESTRATE: wires it together ----------
-requireAuth(async (user) => {
+onAuthReady(async (user) => {
     const container = document.querySelector("#profile");
     container.textContent = "Loading...";
 

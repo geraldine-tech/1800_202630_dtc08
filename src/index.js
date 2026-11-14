@@ -1,18 +1,29 @@
-
 import { db } from "./firebaseConfig.js";
-import { requireAuth } from "./authentication.js";
+import { onAuthReady } from "./authentication.js";
 import { doc, getDoc } from "firebase/firestore";
 
-async function checkUserProfile(user) {
-    const loginPrompt = document.querySelector("#loginPrompt")
-    const userSnapshot = await getDoc(doc(db, "users", user.uid));
-    userSnapshot.exists() ? setVisible(loginPrompt, false) : setVisible(loginPrompt, true);
-}
-
 function setVisible(el, visible) {
-    el.classList?.toggle('d-none', !visible)
+    el?.classList.toggle("d-none", !visible);
 }
 
-requireAuth(async (user) => {
-    checkUserProfile(user)
-})
+async function checkUserProfile(user) {
+    const loginPrompt = document.querySelector("#loginPrompt");
+
+    // Logged out: show the prompt and stop. No Firestore call.
+    if (!user) {
+        setVisible(loginPrompt, true);
+        return;
+    }
+
+    // Logged in: show the prompt only if there's no profile document
+    const userSnapshot = await getDoc(doc(db, "users", user.uid));
+    setVisible(loginPrompt, !userSnapshot.exists());
+}
+
+onAuthReady(async (user) => {
+    try {
+        await checkUserProfile(user);
+    } catch (error) {
+        console.error("Profile check failed:", error);
+    }
+});
