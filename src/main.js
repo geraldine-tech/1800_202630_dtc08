@@ -1,3 +1,4 @@
+
 import { Modal } from "bootstrap";
 import { db } from "./firebaseConfig.js";
 import { requireAuth } from "./authentication.js";
@@ -8,8 +9,10 @@ import {
     collection,
     getDocs,
     setDoc,
-    deleteDoc,
-    addDoc
+    writeBatch,
+    arrayUnion,
+    arrayRemove,
+    serverTimestamp
 } from "firebase/firestore";
 
 const nameElement = document.getElementById("name-goes-here");
@@ -40,6 +43,7 @@ requireAuth(async (user) => {
         setupAddMealForm(user);
     } catch (error) {
         console.error("Dashboard error:", error);
+
         mealMessage.textContent =
             "We couldn't load your dashboard. Please try again.";
     }
@@ -72,7 +76,6 @@ async function loadUserProfile(user) {
     }
 }
 
-
 // Get meal information from the form
 function getMealFormData() {
     return {
@@ -96,7 +99,9 @@ function getMealFormData() {
             document.getElementById("preparationTime").value
         ),
 
-        calories: Number(document.getElementById("calories").value),
+        calories: Number(
+            document.getElementById("calories").value
+        ),
 
         protein: Number(
             document.getElementById("protein").value
@@ -108,78 +113,71 @@ function getMealFormData() {
     };
 }
 
+// Save the meal in mealSubmissions and add its ID to the user's profile
+async function saveUserMeal(user, mealData) {
+    const userRef = doc(db, "users", user.uid);
+
+    // Generate a new submission document ID
+    const submissionRef = doc(collection(db, "mealSubmissions"));
+
+    // Save both Firestore updates together
+    const batch = writeBatch(db);
+
+    // Save the complete meal details
+    batch.set(submissionRef, {
+        ...mealData,
+        userID: user.uid,
+        status: "pending",
+        createdAt: serverTimestamp()
+    });
+
+    // Add the submission ID to the user's myMeals array
+    batch.set(
+        userRef,
+        {
+            myMeals: arrayUnion(submissionRef.id)
+        },
+        { merge: true }
+    );
+
+    await batch.commit();
+}
+
 // Connect the Add Meal form to Firestore
 function setupAddMealForm(user) {
     const form = document.getElementById("addMealForm");
 
-    const savePrivateMealBtn =
-        document.getElementById("savePrivateMealBtn");
-
-    const submitMealReviewBtn =
-        document.getElementById("submitMealReviewBtn");
+    const submitMealBtn =
+        document.getElementById("submitMealBtn");
 
     const modalElement = document.getElementById("addMealModal");
 
     const mealModal = Modal.getOrCreateInstance(modalElement);
 
-    // Save meal privately
-    savePrivateMealBtn.addEventListener("click", async () => {
+    if (!form || !submitMealBtn || !modalElement) {
+        console.error("Add Meal form, button or modal was not found.");
+        return;
+    }
+
+    // Submit meal and save it to the user's meals
+    // and the meal submissions collection.
+    submitMealBtn.addEventListener("click", async () => {
         if (!form.reportValidity()) {
             return;
         }
 
-        savePrivateMealBtn.disabled = true;
+        submitMealBtn.disabled = true;
 
         try {
             const mealData = getMealFormData();
 
-            const privateMealsRef = collection(
-                db,
-                "users",
-                user.uid,
-                "myMeals"
+            // Save meal and update the user's myMeals array
+            await saveUserMeal(user, mealData);
+
+            alert(
+                "Your meal has been submitted successfully! " +
+                "You can view it in My Meals while it awaits approval."
             );
-
-            await addDoc(privateMealsRef, {
-                ...mealData,
-                createdBy: user.uid
-            });
-
-            alert("Your meal has been saved privately!");
-
-            form.reset();
-            mealModal.hide();
-
-        } catch (error) {
-            console.error("Error saving private meal:", error);
-
-            alert("We couldn't save your meal. Please try again.");
-
-        } finally {
-            savePrivateMealBtn.disabled = false;
-        }
-    });
-
-    // Submit meal for review
-    submitMealReviewBtn.addEventListener("click", async () => {
-        if (!form.reportValidity()) {
-            return;
-        }
-
-        submitMealReviewBtn.disabled = true;
-
-        try {
-            const mealData = getMealFormData();
-
-            const submissionsRef = collection(db, "mealSubmissions");
-
-            await addDoc(submissionsRef, {
-                ...mealData,
-                createdBy: user.uid,
-                status: "pending"
-            });
-
-            alert("Your meal has been submitted for review!");
 
             form.reset();
             mealModal.hide();
@@ -187,33 +185,28 @@ function setupAddMealForm(user) {
         } catch (error) {
             console.error("Error submitting meal:", error);
 
-            alert("We couldn't submit your meal. Please try again.");
+            alert(
+                "We couldn't submit your meal. Please try again."
+            );
 
         } finally {
-            submitMealReviewBtn.disabled = false;
+            submitMealBtn.disabled = false;
         }
     });
 }
 
-
-// Load the user's favourite meal IDs from Firestore
+// Load the user's favourite meal IDs from their profile
 async function getFavoriteMealIds(user) {
-    const favoritesRef = collection(
-        db,
-        "users",
-        user.uid,
-        "favorites"
-    );
+    const userRef = doc(db, "users", user.uid);
+    const userSnapshot = await getDoc(userRef);
 
-    const favoritesSnapshot = await getDocs(favoritesRef);
+    if (!userSnapshot.exists()) {
+        return new Set();
+    }
 
-    const favoriteIds = new Set();
+    const profile = userSnapshot.data();
 
-    favoritesSnapshot.forEach((favoriteDoc) => {
-        favoriteIds.add(favoriteDoc.id);
-    });
-
-    return favoriteIds;
+    return new Set(profile.favorites || []);
 }
 
 // Load public meals from Firestore
@@ -317,13 +310,7 @@ async function loadMeals(user) {
 
         // Save or remove the meal in Firestore
         favoriteButton.addEventListener("click", async () => {
-            const favoriteRef = doc(
-                db,
-                "users",
-                user.uid,
-                "favorites",
-                mealId
-            );
+            const userRef = doc(db, "users", user.uid);
 
             const isLiked = favoriteIds.has(mealId);
 
@@ -332,7 +319,13 @@ async function loadMeals(user) {
             try {
                 if (isLiked) {
                     // Remove the favourite
-                    await deleteDoc(favoriteRef);
+                    await setDoc(
+                        userRef,
+                        {
+                            favorites: arrayRemove(mealId)
+                        },
+                        { merge: true }
+                    );
 
                     favoriteIds.delete(mealId);
 
@@ -343,11 +336,16 @@ async function loadMeals(user) {
                         "aria-label",
                         "Save to favourites"
                     );
+
                 } else {
                     // Save the favourite
-                    await setDoc(favoriteRef, {
-                        mealId: mealId
-                    });
+                    await setDoc(
+                        userRef,
+                        {
+                            favorites: arrayUnion(mealId)
+                        },
+                        { merge: true }
+                    );
 
                     favoriteIds.add(mealId);
 
@@ -359,12 +357,14 @@ async function loadMeals(user) {
                         "Remove from favourites"
                     );
                 }
+
             } catch (error) {
                 console.error("Error updating favourite:", error);
 
                 alert(
                     "We couldn't update your favourite. Please try again."
                 );
+
             } finally {
                 favoriteButton.disabled = false;
             }

@@ -36,6 +36,11 @@ export async function signupUser(name, email, password) {
             foodAllergies: [],
             nutritionalNeeds: [],
             dietaryRestrictions: [],
+
+            // Store the user's favourite and submitted meal IDs.
+            favorites: [],
+            myMeals: [],
+
             createdAt: serverTimestamp()
         });
 

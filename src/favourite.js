@@ -3,11 +3,12 @@ import { db } from "./firebaseConfig.js";
 import { requireAuth } from "./authentication.js";
 
 import {
-    collection,
-    getDocs,
     doc,
     getDoc,
-    deleteDoc
+    getDocs,
+    collection,
+    setDoc,
+    arrayRemove
 } from "firebase/firestore";
 
 const savedMealsContainer = document.getElementById("savedMealsContainer");
@@ -28,20 +29,22 @@ requireAuth(async (user) => {
 // Display saved meals from Firestore
 async function displaySavedMeals(user) {
     savedMealsContainer.innerHTML = "";
-
     savedMealsMessage.textContent = "Loading your saved meals...";
 
-    // Get this user's favourites
-    const favoritesRef = collection(
-        db,
-        "users",
-        user.uid,
-        "favorites"
-    );
+    // Get this user's profile and favourite meal IDs
+    const userRef = doc(db, "users", user.uid);
+    const userSnapshot = await getDoc(userRef);
 
-    const favoritesSnapshot = await getDocs(favoritesRef);
+    if (!userSnapshot.exists()) {
+        savedMealsMessage.textContent =
+            "You haven't saved any meals yet.";
+        return;
+    }
 
-    if (favoritesSnapshot.empty) {
+    const profile = userSnapshot.data();
+    const favoriteIds = profile.favorites || [];
+
+    if (favoriteIds.length === 0) {
         savedMealsMessage.textContent =
             "You haven't saved any meals yet.";
         return;
@@ -49,8 +52,8 @@ async function displaySavedMeals(user) {
 
     // Get the actual meal details from the meals collection
     const savedMeals = await Promise.all(
-        favoritesSnapshot.docs.map(async (favoriteDoc) => {
-            const mealRef = doc(db, "meals", favoriteDoc.id);
+        favoriteIds.map(async (mealId) => {
+            const mealRef = doc(db, "meals", mealId);
             const mealSnapshot = await getDoc(mealRef);
 
             if (!mealSnapshot.exists()) {
@@ -120,20 +123,17 @@ async function displaySavedMeals(user) {
             removeButton.disabled = true;
 
             try {
-                // Remove this favourite from Firestore
-                const favoriteRef = doc(
-                    db,
-                    "users",
-                    user.uid,
-                    "favorites",
-                    meal.id
+                // Remove this meal ID from the user's favourites array
+                await setDoc(
+                    userRef,
+                    {
+                        favorites: arrayRemove(meal.id)
+                    },
+                    { merge: true }
                 );
-
-                await deleteDoc(favoriteRef);
 
                 // Refresh the Saved Meals page
                 await displaySavedMeals(user);
-
             } catch (error) {
                 console.error("Error removing favourite:", error);
 
