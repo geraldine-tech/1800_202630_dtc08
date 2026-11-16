@@ -7,17 +7,19 @@
     <title>Login | AffordableEats</title>
 </head>
 
-<body>
+<body style="background-color: #F6F3E9;">
 
     <site-navbar></site-navbar>
 
     <main class="container py-5">
-        <div class="auth-card mx-auto p-4 shadow-sm">
+        <div class="card border-0 shadow-sm mx-auto p-4" style="max-width: 480px;">
 
             <div id="authAlert" class="alert alert-danger d-none" role="alert"></div>
 
             <div id="loginView">
-                <h2 class="text-center fw-bold mb-2">Welcome Back!</h2>
+                <h2 class="text-center fw-bold mb-2" style="color: #183D2B;">
+                    Welcome Back!
+                </h2>
                 <p class="text-center text-secondary mb-4">
                     Log in to continue your healthy eating journey.
                 </p>
@@ -35,19 +37,22 @@
                             required>
                     </div>
 
-                    <button type="submit" class="btn btn-success w-100">
+                    <button type="submit" class="btn text-white w-100"
+                        style="background-color: #183D2B; border-color: #183D2B;">
                         Log In
                     </button>
                 </form>
 
                 <p class="text-center mt-3 mb-0">
                     Don't have an account?
-                    <a href="#" id="toSignup">Sign up</a>
+                    <a href="#" id="toSignup" style="color: #183D2B;">Sign up</a>
                 </p>
             </div>
 
             <div id="signupView" class="d-none">
-                <h2 class="text-center fw-bold mb-2">Create Account</h2>
+                <h2 class="text-center fw-bold mb-2" style="color: #183D2B;">
+                    Create Account
+                </h2>
                 <p class="text-center text-secondary mb-4">
                     Join AffordableEats today.
                 </p>
@@ -70,14 +75,15 @@
                             placeholder="At least 6 characters" minlength="6" required>
                     </div>
 
-                    <button type="submit" class="btn btn-success w-100">
+                    <button type="submit" class="btn text-white w-100"
+                        style="background-color: #183D2B; border-color: #183D2B;">
                         Create Account
                     </button>
                 </form>
 
                 <p class="text-center mt-3 mb-0">
                     Already have an account?
-                    <a href="#" id="toLogin">Log in</a>
+                    <a href="#" id="toLogin" style="color: #183D2B;">Log in</a>
                 </p>
             </div>
 
@@ -88,6 +94,7 @@
 
     <script type="module" src="/src/app.js"></script>
     <script type="module" src="/src/loginSignup.js"></script>
+
 </body>
 
 </html>

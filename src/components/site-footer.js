@@ -2,26 +2,32 @@
 class SiteFooter extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
-            <nav class="navbar fixed-bottom bg-success-subtle border-top">
+            <nav class="navbar fixed-bottom border-top"
+                 style="background-color: #183D2B;">
+
                 <div class="container">
                     <div class="d-flex justify-content-around w-100">
 
-                        <a href="index.html" class="nav-link text-center">
+                        <a href="index.html"
+                           class="nav-link text-center text-white">
                             <i class="bi bi-house-door fs-4 d-block"></i>
                             <small>Home</small>
                         </a>
 
-                        <a href="favorite.html" class="nav-link text-center">
+                        <a href="favorite.html"
+                           class="nav-link text-center text-white">
                             <i class="bi bi-heart fs-4 d-block"></i>
                             <small>Favorite</small>
                         </a>
 
-                        <a href="learn.html" class="nav-link text-center">
+                        <a href="learn.html"
+                           class="nav-link text-center text-white">
                             <i class="bi bi-book-half fs-4 d-block"></i>
                             <small>Learn</small>
                         </a>
 
-                        <a href="profile.html" class="nav-link text-center">
+                        <a href="profile.html"
+                           class="nav-link text-center text-white">
                             <i class="bi bi-person-circle fs-4 d-block"></i>
                             <small>Profile</small>
                         </a>

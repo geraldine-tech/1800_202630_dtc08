@@ -1,37 +1,42 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>My BCIT Project</title>
-    <meta name="comp1800 template" content="My 1800 App" />
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<head>
+  <title>Profile | AffordableEats</title>
+  <meta name="comp1800 template" content="My 1800 App" />
 
-    <!-- Web Components for shared navbar and footer layout -->
-    <script type="module" src="/src/components/site-navbar.js"></script>
-    <script type="module" src="/src/components/site-footer.js"></script>
-    <script type="module" src="/src/profile.js" defer></script>
-  </head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <body>
-    <!------------------------------>
-    <!-- Your HTML Layout go here -->
-    <!------------------------------>
+  <!-- Web Components for shared navbar and footer layout -->
+  <script type="module" src="/src/components/site-navbar.js"></script>
+  <script type="module" src="/src/components/site-footer.js"></script>
+  <script type="module" src="/src/profile.js" defer></script>
+</head>
 
-    <!-- our own navbar goes here -->
-    <site-navbar></site-navbar>
+<body style="background-color: #F6F3E9;">
 
-    <!-- Main content goes here -->
-    <div class="" id="profile">PROFILE</div>
+  <site-navbar></site-navbar>
 
-    <!-- our own footer goes here -->
-    <site-footer></site-footer>
+  <!-- Main content -->
+  <main class="container py-5">
+    <div class="card border-0 shadow-sm rounded-3 p-4" id="profile">
+      <h1 class="fw-bold mb-3" style="color: #183D2B;">
+        My Profile
+      </h1>
 
-    <!---------------------------------------------->
-    <!-- Your own JavaScript scripts go here      -->
-    <!---------------------------------------------->
+      <p class="text-secondary mb-0">
+        Manage your personal information and food preferences.
+      </p>
+    </div>
+  </main>
 
-    <script type="module" src="/src/app.js"></script>
-  </body>
+  <site-footer></site-footer>
+
+  <!-- JavaScript -->
+  <script type="module" src="/src/app.js"></script>
+
+</body>
+
 </html>

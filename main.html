@@ -7,14 +7,14 @@
     <title>Dashboard | AffordableEats</title>
 </head>
 
-<body>
+<body style="background-color: #F6F3E9;">
 
     <site-navbar></site-navbar>
 
     <main class="container py-4">
 
         <!-- Welcome Section -->
-        <section class="dashboard-welcome p-4 mb-4">
+        <section class="p-4 mb-4 rounded-3" style="background-color: #A8C686;">
             <h1 class="fw-bold">
                 Hello, <span id="name-goes-here">friend</span>!
             </h1>
@@ -27,18 +27,18 @@
         <section class="row g-3 mb-4">
 
             <div class="col-md-6">
-                <div class="feature-card p-4 h-100">
+                <div class="card border-0 shadow-sm p-4 h-100">
                     <p class="text-secondary mb-1">
                         Your daily food budget
                     </p>
-                    <h2 class="text-success fw-bold" id="dailyBudget">
+                    <h2 class="fw-bold mb-0" style="color: #183D2B;" id="dailyBudget">
                         $20.00
                     </h2>
                 </div>
             </div>
 
             <div class="col-md-6">
-                <div class="feature-card p-4 h-100">
+                <div class="card border-0 shadow-sm p-4 h-100">
                     <p class="text-secondary mb-1">
                         Your nutritional preferences
                     </p>
@@ -53,7 +53,9 @@
         <!-- Explore Meals Section -->
         <section class="mb-4">
 
-            <h2 class="fw-bold">Explore Affordable Meals</h2>
+            <h2 class="fw-bold" style="color: #183D2B;">
+                Explore Affordable Meals
+            </h2>
 
             <p class="text-secondary">
                 Discover meals and their estimated nutritional information.
@@ -61,8 +63,8 @@
 
             <!-- Add a Meal Button -->
             <div class="d-grid d-md-flex justify-content-md-end mb-3">
-                <button type="button" class="btn btn-success" id="addMealBtn" data-bs-toggle="modal"
-                    data-bs-target="#addMealModal">
+                <button type="button" class="btn text-white" style="background-color: #183D2B; border-color: #183D2B;"
+                    id="addMealBtn" data-bs-toggle="modal" data-bs-target="#addMealModal">
 
                     <i class="bi bi-plus-lg me-2"></i>
                     Add a Meal
@@ -85,7 +87,7 @@
 
             <div class="modal-dialog modal-dialog-centered modal-lg">
 
-                <div class="modal-content">
+                <div class="modal-content border-0 shadow">
 
                     <!-- Modal Header -->
                     <div class="modal-header">
@@ -221,7 +223,8 @@
                                 Cancel
                             </button>
 
-                            <button type="button" class="btn btn-success" id="submitMealBtn">
+                            <button type="button" class="btn text-white"
+                                style="background-color: #183D2B; border-color: #183D2B;" id="submitMealBtn">
                                 Submit Meal
                             </button>
 

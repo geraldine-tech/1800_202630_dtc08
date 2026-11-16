@@ -1,36 +1,60 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>My BCIT Project</title>
-    <meta name="comp1800 template" content="My 1800 App" />
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<head>
+  <title>Learn | AffordableEats</title>
+  <meta name="comp1800 template" content="My 1800 App" />
 
-    <!-- Web Components for shared navbar and footer layout -->
-    <script type="module" src="/src/components/site-navbar.js"></script>
-    <script type="module" src="/src/components/site-footer.js"></script>
-  </head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <body>
-    <!------------------------------>
-    <!-- Your HTML Layout go here -->
-    <!------------------------------>
+  <!-- Web Components for shared navbar and footer layout -->
+  <script type="module" src="/src/components/site-navbar.js"></script>
+  <script type="module" src="/src/components/site-footer.js"></script>
+</head>
 
-    <!-- our own navbar goes here -->
-    <site-navbar></site-navbar>
+<body style="background-color: #F6F3E9;">
 
-    <!-- Main content goes here -->
-    <div>LEARN</div>
+  <site-navbar></site-navbar>
 
-    <!-- our own footer goes here -->
-    <site-footer></site-footer>
+  <!-- Main content: displays the selected meal details -->
+  <main class="container py-5">
 
-    <!---------------------------------------------->
-    <!-- Your own JavaScript scripts go here      -->
-    <!---------------------------------------------->
+    <div class="mb-4">
+      <h1 class="fw-bold" style="color: #183D2B;">
+        Meal Details
+      </h1>
 
-    <script type="module" src="/src/app.js"></script>
-  </body>
+      <p class="text-secondary">
+        Discover the ingredients, nutrition and cost of this meal.
+      </p>
+    </div>
+
+    <!-- JavaScript will insert the selected meal information here -->
+    <div id="mealDetails" class="bg-white rounded-3 shadow-sm p-4">
+
+      <p class="text-secondary mb-0">
+        Loading meal details...
+      </p>
+
+    </div>
+
+    <!-- Return to the previous page -->
+    <button id="backButton" class="btn btn-success mt-4">
+      <i class="bi bi-arrow-left"></i> Back
+    </button>
+
+  </main>
+
+  <site-footer></site-footer>
+
+  <!-- Shared Bootstrap and application files -->
+  <script type="module" src="/src/app.js"></script>
+
+  <!-- Loads the selected meal from Firestore -->
+  <script type="module" src="/src/learn.js"></script>
+
+</body>
+
 </html>
