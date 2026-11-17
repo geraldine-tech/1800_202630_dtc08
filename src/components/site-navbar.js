@@ -32,30 +32,6 @@ class SiteNavbar extends HTMLElement {
 
                         <ul class="navbar-nav me-auto">
 
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="index.html">
-                                    Home
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="main.html">
-                                    Meals
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="favorite.html">
-                                    Favorites
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="learn.html">
-                                    Learn
-                                </a>
-                            </li>
-
                         </ul>
 
                         <div id="authControls">
