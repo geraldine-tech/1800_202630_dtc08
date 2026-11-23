@@ -164,6 +164,8 @@ export async function loadMeals(user) {
 
             const cardBody = document.createElement("div");
             cardBody.className = "card-body";
+            // For like button to sit correctly
+            cardBody.style.position = "relative";
 
             // Display the meal name.
             const title = document.createElement("h5");
