@@ -2,34 +2,31 @@
 import { db } from "./firebaseConfig.js";
 import { doc, getDoc } from "firebase/firestore";
 
-// Load the user's profile information
+// Load the user's profile information.
 export async function loadUserProfile(user) {
+
     const userRef = doc(db, "users", user.uid);
     const userSnapshot = await getDoc(userRef);
 
+    // Display the user's name.
     const nameElement = document.getElementById("name-goes-here");
+
+    if (nameElement) {
+        nameElement.textContent = user.displayName || user.email || "friend";
+    }
+
+    // Display the user's daily budget.
     const budgetElement = document.getElementById("dailyBudget");
-    const needsElement = document.getElementById("nutritionNeeds");
 
-    const name = user.displayName || user.email || "friend";
-    nameElement.textContent = name;
+    if (budgetElement) {
 
-    if (userSnapshot.exists()) {
-        const profile = userSnapshot.data();
+        let budget = 20;
 
-        const budget = Number(profile.dailyBudget ?? 20);
+        if (userSnapshot.exists()) {
+            const profile = userSnapshot.data();
+            budget = Number(profile.dailyBudget);
+        }
 
         budgetElement.textContent = `$${budget.toFixed(2)}`;
-
-        const needs = profile.nutritionalNeeds || [];
-
-        needsElement.textContent =
-            needs.length > 0
-                ? needs.join(", ")
-                : "No preferences added yet.";
-
-    } else {
-        budgetElement.textContent = "$20.00";
-        needsElement.textContent = "No preferences added yet.";
     }
 }

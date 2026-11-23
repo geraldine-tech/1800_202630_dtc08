@@ -1,6 +1,11 @@
 
 import { auth, db } from "/src/firebaseConfig.js";
-import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+
+import {
+    doc,
+    setDoc,
+    serverTimestamp
+} from "firebase/firestore";
 
 import {
     signInWithEmailAndPassword,
@@ -10,50 +15,47 @@ import {
     signOut
 } from "firebase/auth";
 
-// Register a new user and create their AffordableEats profile.
+// Register a new user.
 export async function signupUser(name, email, password) {
-    try {
-        const userCredential = await createUserWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
 
-        const user = userCredential.user;
+    // Create the user's Firebase Authentication account.
+    const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+    );
 
-        await updateProfile(user, {
-            displayName: name
-        });
+    const user = userCredential.user;
 
-        // Create the user's profile in Firestore.
-        const userRef = doc(db, "users", user.uid);
+    // Save the user's name in Firebase Authentication.
+    await updateProfile(user, {
+        displayName: name
+    });
 
-        await setDoc(userRef, {
-            userID: user.uid,
-            name: name,
-            email: email,
-            dailyBudget: 20,
-            foodAllergies: [],
-            nutritionalNeeds: [],
-            dietaryRestrictions: [],
+    // Create the user's profile in Firestore.
+    const userRef = doc(db, "users", user.uid);
 
-            // Store the user's favourite and submitted meal IDs.
-            favorites: [],
-            myMeals: [],
+    await setDoc(userRef, {
+        userID: user.uid,
+        name: name,
+        email: email,
+        dailyBudget: 20,
 
-            createdAt: serverTimestamp()
-        });
+        foodAllergies: [],
+        nutritionalNeeds: [],
+        dietaryRestrictions: [],
 
-        return user;
+        favorites: [],
 
-    } catch (error) {
-        console.error("Signup error:", error);
-        throw error;
-    }
+        createdAt: serverTimestamp()
+    });
+
+    return user;
 }
 
 // Log in an existing user.
 export async function loginUser(email, password) {
+
     const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
@@ -63,20 +65,25 @@ export async function loginUser(email, password) {
     return userCredential.user;
 }
 
-// Log out the current user.
+// Log out the user.
 export async function logoutUser() {
+
     await signOut(auth);
+
     window.location.href = "index.html";
 }
 
-// Listen for Firebase authentication changes.
+// Check when the user's login status changes.
 export function onAuthReady(callback) {
+
     return onAuthStateChanged(auth, callback);
 }
 
-// Protect pages that require a signed-in user.
+// Check if a user is logged in before opening a page.
 export function requireAuth(callback) {
+
     return onAuthStateChanged(auth, (user) => {
+
         if (!user) {
             window.location.href = "login.html";
             return;
@@ -86,22 +93,34 @@ export function requireAuth(callback) {
     });
 }
 
-// Display friendly Firebase error messages.
+// Show a friendly message when Firebase returns an error.
 export function authErrorMessage(error) {
-    const code = (error?.code || "").toLowerCase();
 
-    const messages = {
-        "auth/invalid-credential": "Wrong email or password.",
-        "auth/invalid-email": "Please enter a valid email address.",
-        "auth/user-not-found": "No account found with that email.",
-        "auth/wrong-password": "Incorrect password.",
-        "auth/too-many-requests": "Too many attempts. Try again later.",
-        "auth/email-already-in-use": "This email is already registered.",
-        "auth/weak-password": "Your password must contain at least 6 characters.",
-        "auth/missing-password": "Please enter your password.",
-        "auth/network-request-failed": "Network error. Please try again.",
-        "permission-denied": "You do not have permission to access this information."
-    };
+    const code = error.code;
 
-    return messages[code] || "Something went wrong. Please try again.";
+    if (code === "auth/invalid-credential") {
+        return "Wrong email or password.";
+    }
+
+    if (code === "auth/invalid-email") {
+        return "Please enter a valid email address.";
+    }
+
+    if (code === "auth/email-already-in-use") {
+        return "This email is already registered.";
+    }
+
+    if (code === "auth/weak-password") {
+        return "Your password must contain at least 6 characters.";
+    }
+
+    if (code === "auth/too-many-requests") {
+        return "Too many attempts. Try again later.";
+    }
+
+    if (code === "auth/network-request-failed") {
+        return "Network error. Please try again.";
+    }
+
+    return "Something went wrong. Please try again.";
 }

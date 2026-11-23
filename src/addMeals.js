@@ -2,7 +2,7 @@
 import { db } from "./firebaseConfig.js";
 import { doc, setDoc } from "firebase/firestore";
 
-// Sample meals for the AffordableEats dashboard
+// Sample meals
 const meals = [
     {
         id: "jollof-rice-chicken",
@@ -92,22 +92,16 @@ const meals = [
 
 // Add sample meals to Firestore
 export async function addMeals() {
-    try {
-        for (const meal of meals) {
-            const mealRef = doc(db, "meals", meal.id);
+    for (const meal of meals) {
+        const mealRef = doc(db, "meals", meal.id);
 
-            const { id, ...mealData } = meal;
+        const mealData = { ...meal };
+        delete mealData.id;
 
-            await setDoc(mealRef, {
-                ...mealData,
-                status: "approved"
-            });
-        }
+        mealData.status = "approved";
 
-        console.log("All six sample meals were added successfully!");
-
-    } catch (error) {
-        console.error("Error adding sample meals:", error);
-        throw error;
+        await setDoc(mealRef, mealData);
     }
+
+    console.log("Sample meals added successfully!");
 }

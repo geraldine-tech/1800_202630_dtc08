@@ -2,38 +2,47 @@
 import { db } from "./firebaseConfig.js";
 import { doc, getDoc } from "firebase/firestore";
 
-// Get the meal ID passed from the dashboard URL.
 const urlParams = new URLSearchParams(window.location.search);
 const mealId = urlParams.get("mealId");
 
-// Find the container where the meal details will be displayed.
 const mealDetails = document.getElementById("mealDetails");
+const backButton = document.getElementById("backButton");
 
-// Display the selected meal's information.
+// Create and display text elements
+function addText(tag, className, text) {
+    const element = document.createElement(tag);
+    element.className = className;
+    element.textContent = text;
+    mealDetails.appendChild(element);
+}
+
+// Load selected meal
 async function loadMealDetails() {
-    // Check whether a meal ID was provided in the URL.
+    if (!mealDetails) {
+        console.error("Meal details container not found.");
+        return;
+    }
+
     if (!mealId) {
         mealDetails.textContent = "No meal was selected.";
         return;
     }
 
+    mealDetails.textContent = "Loading meal...";
+
     try {
-        // Find the selected meal document in the Firestore meals collection.
         const mealRef = doc(db, "meals", mealId);
         const mealSnapshot = await getDoc(mealRef);
 
-        // Check whether the selected meal exists.
         if (!mealSnapshot.exists()) {
             mealDetails.textContent = "This meal could not be found.";
             return;
         }
 
         const meal = mealSnapshot.data();
-
-        // Clear the loading message before displaying the meal.
         mealDetails.innerHTML = "";
 
-        // Display the meal picture if an image URL is available.
+        // Meal image
         if (meal.imageUrl) {
             const image = document.createElement("img");
             image.src = meal.imageUrl;
@@ -41,44 +50,24 @@ async function loadMealDetails() {
             image.className = "img-fluid rounded-3 mb-4 w-100";
             image.style.maxHeight = "350px";
             image.style.objectFit = "cover";
-
             mealDetails.appendChild(image);
         }
 
-        // Display the meal name.
-        const title = document.createElement("h2");
-        title.className = "fw-bold mb-2";
-        title.style.color = "#183D2B";
-        title.textContent = meal.mealName || "Untitled Meal";
-        mealDetails.appendChild(title);
+        // Meal information
+        addText("h2", "fw-bold mb-2", meal.mealName || "Untitled Meal");
+        addText("p", "text-muted", meal.mealType || "Meal");
 
-        // Display the meal type.
-        const type = document.createElement("p");
-        type.className = "text-muted";
-        type.textContent = meal.mealType || "Meal";
-        mealDetails.appendChild(type);
+        addText("h5", "fw-bold mt-4", "About this meal");
+        addText("p", "", meal.description || "No description available.");
 
-        // Display the meal description.
-        const descriptionTitle = document.createElement("h5");
-        descriptionTitle.className = "fw-bold mt-4";
-        descriptionTitle.textContent = "About this meal";
-        mealDetails.appendChild(descriptionTitle);
-
-        const description = document.createElement("p");
-        description.textContent =
-            meal.description || "No description available.";
-        mealDetails.appendChild(description);
-
-        // Display the meal ingredients.
-        const ingredientsTitle = document.createElement("h5");
-        ingredientsTitle.className = "fw-bold mt-4";
-        ingredientsTitle.textContent = "Ingredients";
-        mealDetails.appendChild(ingredientsTitle);
+        // Ingredients
+        addText("h5", "fw-bold mt-4", "Ingredients");
 
         const ingredientsList = document.createElement("ul");
+        const ingredients = meal.ingredients || [];
 
-        if (Array.isArray(meal.ingredients) && meal.ingredients.length > 0) {
-            meal.ingredients.forEach((ingredient) => {
+        if (ingredients.length > 0) {
+            ingredients.forEach((ingredient) => {
                 const item = document.createElement("li");
                 item.textContent = ingredient;
                 ingredientsList.appendChild(item);
@@ -91,48 +80,24 @@ async function loadMealDetails() {
 
         mealDetails.appendChild(ingredientsList);
 
-        // Convert the estimated cost from cents to dollars.
+        // Nutrition and cost
         const cost = Number(meal.estimatedCost || 0) / 100;
 
-        // Display the meal's cost and nutritional information.
-        const nutritionTitle = document.createElement("h5");
-        nutritionTitle.className = "fw-bold mt-4";
-        nutritionTitle.textContent = "Nutrition and Cost";
-        mealDetails.appendChild(nutritionTitle);
+        addText("h5", "fw-bold mt-4", "Nutrition and Cost");
+        addText("p", "", `Estimated Cost: $${cost.toFixed(2)}`);
+        addText("p", "", `Calories: ${meal.calories || 0}`);
+        addText("p", "", `Protein: ${meal.protein || 0}g`);
+        addText("p", "", `Preparation Time: ${meal.preparationTime || 0} minutes`);
+        addText("p", "", `Servings: ${meal.servings || "Not specified"}`);
 
-        const costText = document.createElement("p");
-        costText.textContent = `Estimated Cost: $${cost.toFixed(2)}`;
-        mealDetails.appendChild(costText);
-
-        const caloriesText = document.createElement("p");
-        caloriesText.textContent = `Calories: ${meal.calories ?? 0}`;
-        mealDetails.appendChild(caloriesText);
-
-        const proteinText = document.createElement("p");
-        proteinText.textContent = `Protein: ${meal.protein ?? 0}g`;
-        mealDetails.appendChild(proteinText);
-
-        // Display preparation time.
-        const timeText = document.createElement("p");
-        timeText.textContent =
-            `Preparation Time: ${meal.preparationTime ?? 0} minutes`;
-        mealDetails.appendChild(timeText);
-
-        // Display the number of servings.
-        const servingsText = document.createElement("p");
-        servingsText.textContent = `Servings: ${meal.servings ?? "Not specified"}`;
-        mealDetails.appendChild(servingsText);
-
-        // Display dietary tags as Bootstrap badges.
-        const tagsTitle = document.createElement("h5");
-        tagsTitle.className = "fw-bold mt-4";
-        tagsTitle.textContent = "Dietary Information";
-        mealDetails.appendChild(tagsTitle);
+        // Dietary tags
+        addText("h5", "fw-bold mt-4", "Dietary Information");
 
         const tagContainer = document.createElement("div");
+        const tags = meal.dietaryTags || [];
 
-        if (Array.isArray(meal.dietaryTags) && meal.dietaryTags.length > 0) {
-            meal.dietaryTags.forEach((tag) => {
+        if (tags.length > 0) {
+            tags.forEach((tag) => {
                 const badge = document.createElement("span");
                 badge.className = "badge bg-success me-2 mb-2";
                 badge.textContent = tag;
@@ -146,15 +111,15 @@ async function loadMealDetails() {
 
     } catch (error) {
         console.error("Error loading meal details:", error);
-        mealDetails.textContent =
-            "Unable to load this meal. Please try again later.";
+        mealDetails.textContent = "Unable to load this meal. Please try again later.";
     }
 }
 
-// Load the selected meal when the page opens.
 loadMealDetails();
 
-// Return to the previous page when the Back button is clicked.
-document.getElementById("backButton").addEventListener("click", () => {
-    window.history.back();
-});
+// Back button
+if (backButton) {
+    backButton.addEventListener("click", () => {
+        window.history.back();
+    });
+}

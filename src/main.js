@@ -1,46 +1,46 @@
 
 import { Modal } from "bootstrap";
-
 import { requireAuth } from "./authentication.js";
 import { loadUserProfile } from "./dashboard.js";
-import { loadMeals } from "./meals.js";
+import { loadMeals, loadMyMeals } from "./meals.js";
 import { setupAddMealForm } from "./mealSubmission.js";
 
-// Get the dashboard message element
 const mealMessage = document.getElementById("mealMessage");
-
-// Connect the Add Meal button to the modal
 const addMealBtn = document.getElementById("addMealBtn");
 const addMealModalElement = document.getElementById("addMealModal");
 
+// Open Add Meal modal
 if (addMealBtn && addMealModalElement) {
     const addMealModal = Modal.getOrCreateInstance(addMealModalElement);
 
     addMealBtn.addEventListener("click", () => {
         addMealModal.show();
     });
-} else {
-    console.error("Add Meal button or modal was not found.");
 }
 
-// Check authentication and load the dashboard
+// Load dashboard after login
 requireAuth(async (user) => {
     try {
-        // Load the user's name, budget and nutrition preferences
         await loadUserProfile(user);
-
-        // Load public meals and favourite buttons
         await loadMeals(user);
+        await loadMyMeals(user);
 
-        // Connect the Add Meal form
         setupAddMealForm(user);
+
+        // Refresh My Meals when a meal is added
+        window.addEventListener("myMealsUpdated", async () => {
+            try {
+                await loadMyMeals(user);
+            } catch (error) {
+                console.error("Error refreshing meals:", error);
+            }
+        });
 
     } catch (error) {
         console.error("Dashboard error:", error);
 
         if (mealMessage) {
-            mealMessage.textContent =
-                "We couldn't load your dashboard. Please try again.";
+            mealMessage.textContent = "We couldn't load your dashboard. Please try again.";
         }
     }
 });
