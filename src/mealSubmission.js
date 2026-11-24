@@ -27,7 +27,7 @@ function getMealFormData() {
     };
 }
 
-// Resize the picture and convert it to a Base64 string
+// Resize the picture and convert it to a Basestring
 function resizeImage(file, maxSize = 600) {
     return new Promise(function (resolve, reject) {
         const img = new Image();
