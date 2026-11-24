@@ -25,6 +25,10 @@ requireAuth(async (user) => {
         await loadMeals(user);
         await loadMyMeals(user);
 
+        // Load public meals and favourite buttons
+        await loadMeals(user, "meals");
+        await loadMeals(user, "mealSubmissions")
+
         setupAddMealForm(user);
 
         // Refresh My Meals when a meal is added

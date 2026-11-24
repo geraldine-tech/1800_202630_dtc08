@@ -16,6 +16,7 @@ function createText(tag, className, text) {
     const element = document.createElement(tag);
     element.className = className;
     element.textContent = text;
+
     return element;
 }
 
@@ -116,13 +117,6 @@ export async function loadMeals(user) {
             searchMessage.textContent = "";
         }
 
-        if (mealsSnapshot.empty) {
-            if (message) {
-                message.textContent = "No meals are available at the moment.";
-            }
-            return;
-        }
-
         const mealCards = [];
 
         mealsSnapshot.forEach((mealDoc) => {
@@ -155,6 +149,7 @@ export async function loadMeals(user) {
 
             const cardBody = document.createElement("div");
             cardBody.className = "card-body";
+            cardBody.style.position = "relative";
 
             cardBody.appendChild(
                 createText("h5", "card-title", meal.mealName || "Untitled Meal")
