@@ -30,7 +30,8 @@ requireAuth(async (user) => {
         await loadUserProfile(user);
 
         // Load public meals and favourite buttons
-        await loadMeals(user);
+        await loadMeals(user, "meals");
+        await loadMeals(user, "mealSubmissions")
 
         // Connect the Add Meal form
         setupAddMealForm(user);

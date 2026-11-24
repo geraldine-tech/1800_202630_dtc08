@@ -84,7 +84,7 @@ function createFavoriteButton(user, mealId, favoriteIds) {
 }
 
 // Load approved meals from Firestore and display them on the dashboard.
-export async function loadMeals(user) {
+export async function loadMeals(user , collection_name) {
     const mealsContainer = document.getElementById("mealsContainer");
 
     if (!mealsContainer) {
@@ -93,14 +93,12 @@ export async function loadMeals(user) {
     }
 
     try {
-        const mealsSnapshot = await getDocs(collection(db, "meals"));
+        const mealsSnapshot = await getDocs(collection(db, collection_name));
 
         // Load the user's saved favourites so the correct heart appears.
         const favoriteIds = await getFavoriteMealIds(user);
 
         // Clear existing cards before displaying the latest meal data.
-        mealsContainer.innerHTML = "";
-
         if (mealsSnapshot.empty) {
             mealsContainer.innerHTML =
                 "<p>No meals are available at the moment.</p>";
